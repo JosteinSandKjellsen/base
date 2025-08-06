@@ -15,7 +15,17 @@ export function WelcomeContent() {
           component="h1" 
           className="mb-4"
           color="primary"
+        >
+          Welcome
+        </Typography>
+        <Typography 
+          variant="h6" 
+          component="p"
+          color="text.secondary"
+        >
+          Ready to build something amazing
+        </Typography>
+      </Box>
     </Container>
-  )
   );
 }
