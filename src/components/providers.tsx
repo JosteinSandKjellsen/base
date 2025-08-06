@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
@@ -223,11 +224,13 @@ function MUIThemeProvider({ children }: { children: ReactNode }) {
  */
 export function Providers({ children }: ProvidersProps) {
   return (
-    <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-      <MUIThemeProvider>
-        <CssBaseline />
-        {children}
-      </MUIThemeProvider>
-    </AppRouterCacheProvider>
+    <NextThemesProvider attribute="data-theme" defaultTheme="system" enableSystem>
+      <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+        <MUIThemeProvider>
+          <CssBaseline />
+          {children}
+        </MUIThemeProvider>
+      </AppRouterCacheProvider>
+    </NextThemesProvider>
   );
 }
