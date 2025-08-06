@@ -21,7 +21,7 @@ import {
   AssignmentOutlined as AssignmentOutlinedIcon,
   DarkMode as DarkModeIcon,
   LightMode as LightModeIcon,
-  AccountCircle as AccountCircleIcon,
+  Person as PersonIcon,
 } from "@mui/icons-material";
 import { useTheme } from "next-themes";
 
@@ -164,13 +164,15 @@ export function NavigationRail() {
         {/* User avatar */}
         <IconButton
           sx={{
-            color: "primary.main",
+            color: "text.primary",
+            border: 1,
+            borderColor: "divider",
             "&:hover": {
               backgroundColor: "action.hover",
             },
           }}
         >
-          <AccountCircleIcon />
+          <PersonIcon />
         </IconButton>
       </Box>
     </Paper>
