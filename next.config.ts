@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
+const isWebContainer = process.env.NODE_ENV === "development" && process.env.HOSTNAME === "0.0.0.0";
 
 // =========================================================================
 // CONTENT SECURITY POLICY
@@ -11,11 +12,11 @@ const ContentSecurityPolicy = `
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: https:;
   font-src 'self';
-  connect-src 'self'${isDev ? " http://localhost:* http://127.0.0.1:*" : ""};
+  connect-src 'self'${isDev ? " http://localhost:* http://127.0.0.1:* https://*.webcontainer-api.io wss://*.webcontainer-api.io" : ""};
   object-src 'none';
   base-uri 'self';
   form-action 'self';
-  frame-ancestors 'none';
+  frame-ancestors ${isWebContainer ? "'self' https://*.webcontainer-api.io" : "'none'"};
 `
   .replace(/\n/g, "")
   .trim();
@@ -34,10 +35,10 @@ const commonSecurityHeaders = [
     key: "Content-Security-Policy",
     value: ContentSecurityPolicy, // Prevents XSS, clickjacking, and other code injection attacks
   },
-  {
+  ...(isWebContainer ? [] : [{
     key: "X-Frame-Options",
     value: "DENY", // Prevents clickjacking by disallowing framing
-  },
+  }]),
   {
     key: "X-XSS-Protection",
     value: "1; mode=block", // Enables XSS filtering in older browsers
@@ -58,21 +59,21 @@ const commonSecurityHeaders = [
     key: "Cross-Origin-Opener-Policy",
     value: "same-origin", // Isolates browsing context for security
   },
-  {
+  ...(isWebContainer ? [] : [{
     key: "Cross-Origin-Resource-Policy",
     value: "same-origin", // Restricts which origins can load resources
-  },
-  {
+  }]),
+  ...(isWebContainer ? [] : [{
     key: "Cross-Origin-Embedder-Policy",
     value: "require-corp", // Controls which cross-origin resources can be embedded
-  },
+  }]),
 ];
 
 // Development-only security headers
 const localDevSecurityHeaders = [
   {
     key: "Access-Control-Allow-Origin",
-    value: "*", // Allows all origins for CORS in dev (never use in prod)
+    value: isWebContainer ? "https://*.webcontainer-api.io" : "*", // Allows WebContainer origins
   },
   {
     key: "X-Debug-Mode",
