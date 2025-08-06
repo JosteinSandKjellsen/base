@@ -21,6 +21,22 @@ const ContentSecurityPolicy = `
   .replace(/\n/g, "")
   .trim();
 
+// Much more permissive CSP for WebContainer
+const WebContainerCSP = `
+  default-src 'self' https://*.webcontainer-api.io;
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.webcontainer-api.io;
+  style-src 'self' 'unsafe-inline' https://*.webcontainer-api.io;
+  img-src 'self' data: https: blob:;
+  font-src 'self' https://*.webcontainer-api.io;
+  connect-src 'self' http://localhost:* http://127.0.0.1:* https://*.webcontainer-api.io wss://*.webcontainer-api.io ws://localhost:*;
+  object-src 'self';
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'self' https://*.webcontainer-api.io;
+`
+  .replace(/\n/g, "")
+  .trim();
+
 // =========================================================================
 // SECURITY HEADERS
 // NOTE: Security headers are also set in the ASP.NET middleware.
@@ -33,7 +49,7 @@ const ContentSecurityPolicy = `
 const commonSecurityHeaders = [
   {
     key: "Content-Security-Policy",
-    value: ContentSecurityPolicy, // Prevents XSS, clickjacking, and other code injection attacks
+    value: isWebContainer ? WebContainerCSP : ContentSecurityPolicy, // Prevents XSS, clickjacking, and other code injection attacks
   },
   ...(isWebContainer ? [] : [{
     key: "X-Frame-Options",
@@ -45,11 +61,11 @@ const commonSecurityHeaders = [
   },
   {
     key: "Referrer-Policy",
-    value: "strict-origin-when-cross-origin", // Controls how much referrer info is sent
+    value: isWebContainer ? "no-referrer-when-downgrade" : "strict-origin-when-cross-origin", // Controls how much referrer info is sent
   },
   {
     key: "Permissions-Policy",
-    value: "camera=(), microphone=(), geolocation=(), interest-cohort=()", // Restricts browser features
+    value: isWebContainer ? "" : "camera=(), microphone=(), geolocation=(), interest-cohort=()", // Restricts browser features
   },
   {
     key: "X-Content-Type-Options",
@@ -57,7 +73,7 @@ const commonSecurityHeaders = [
   },
   {
     key: "Cross-Origin-Opener-Policy",
-    value: "same-origin", // Isolates browsing context for security
+    value: isWebContainer ? "unsafe-none" : "same-origin", // Isolates browsing context for security
   },
   ...(isWebContainer ? [] : [{
     key: "Cross-Origin-Resource-Policy",
