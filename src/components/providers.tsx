@@ -189,19 +189,8 @@ interface ProvidersProps {
 }
 
 function MUIThemeProvider({ children }: ProvidersProps) {
-  const [mounted, setMounted] = useState(false);
-  const { theme: nextTheme, systemTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return <ThemeProvider theme={lightTheme}>{children}</ThemeProvider>;
-  }
-
-  const currentTheme = nextTheme === 'system' ? systemTheme : nextTheme;
-  const muiTheme = currentTheme === 'dark' ? darkTheme : lightTheme;
+  const { resolvedTheme } = useTheme();
+  const muiTheme = resolvedTheme === 'dark' ? darkTheme : lightTheme;
 
   return (
     <ThemeProvider theme={muiTheme}>
