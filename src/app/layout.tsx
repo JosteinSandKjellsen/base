@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { Providers } from "@/components/providers";
 import { NavigationRail } from "@/components/navigation-rail";
+import { ThemeToggle } from "@/components/theme-toggle";
 import "./globals.css";
 import { Inter } from 'next/font/google';
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="antialiased bg-background text-foreground">
         <Providers>
           <NavigationRail />
+          <ThemeToggle />
           <div className="ml-20 container mx-auto max-w-6xl min-h-screen py-8">
             {children}
           </div>

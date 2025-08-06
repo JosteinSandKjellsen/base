@@ -146,21 +146,6 @@ export function NavigationRail() {
 
       {/* Bottom section */}
       <Box sx={{ p: 2, display: "flex", flexDirection: "column", gap: 1 }}>
-        {/* Theme toggle */}
-        <IconButton
-          onClick={toggleTheme}
-          sx={{
-            color: "text.primary",
-            border: 1,
-            borderColor: "divider",
-            "&:hover": {
-              backgroundColor: "action.hover",
-            },
-          }}
-        >
-          {theme === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
-        </IconButton>
-
         {/* User avatar */}
         <IconButton
           sx={{
