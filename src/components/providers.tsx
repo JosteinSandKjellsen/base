@@ -179,6 +179,8 @@ const darkTheme = createTheme({
     text: {
       primary: "#FFFFFF",
       secondary: "#FFFFFF",
+    }
+  }
 
   const currentTheme = nextTheme === 'system' ? systemTheme : nextTheme;
   const muiTheme = currentTheme === 'dark' ? darkTheme : lightTheme;
@@ -189,6 +191,7 @@ const darkTheme = createTheme({
     </ThemeProvider>
   );
 }
+)
 
 /**
  * Client-side providers for the application.
