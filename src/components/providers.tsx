@@ -154,7 +154,7 @@ const darkTheme = createTheme({
       contrastText: "#441B50",
     },
     success: {
-      main: "#3FAF43",
+      main: "#3FAF3",
       contrastText: "#0E2510",
     },
     warning: {
@@ -188,9 +188,28 @@ interface ProvidersProps {
   children: ReactNode;
 }
 
-function MUIThemeProvider({ children }: ProvidersProps) {
-  const { resolvedTheme } = useTheme();
-  const muiTheme = resolvedTheme === 'dark' ? darkTheme : lightTheme;
+/**
+ * Theme provider component that switches between light and dark themes
+ */
+function MUIThemeProvider({ children }: { children: ReactNode }) {
+  const { theme: nextTheme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    // Return light theme during SSR
+    return (
+      <ThemeProvider theme={lightTheme}>
+        {children}
+      </ThemeProvider>
+    );
+  }
+
+  const currentTheme = nextTheme === 'system' ? systemTheme : nextTheme;
+  const muiTheme = currentTheme === 'dark' ? darkTheme : lightTheme;
 
   return (
     <ThemeProvider theme={muiTheme}>
@@ -205,7 +224,7 @@ function MUIThemeProvider({ children }: ProvidersProps) {
  */
 export function Providers({ children }: ProvidersProps) {
   return (
-    <NextThemesProvider attribute="data-theme" defaultTheme="light" enableSystem>
+    <NextThemesProvider attribute="data-theme" defaultTheme="system" enableSystem>
       <AppRouterCacheProvider options={{ enableCssLayer: true }}>
         <MUIThemeProvider>
           <CssBaseline />
