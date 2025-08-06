@@ -179,20 +179,6 @@ const darkTheme = createTheme({
     text: {
       primary: "#FFFFFF",
       secondary: "#FFFFFF",
-    },
-  },
-  typography: customTypography,
-});
-
-interface ProvidersProps {
-  children: ReactNode;
-}
-
-/**
- * Theme provider component that switches between light and dark themes
- */
-function MUIThemeProvider({ children }: { children: ReactNode }) {
-  const { theme: nextTheme, systemTheme } = useTheme();
 
   const currentTheme = nextTheme === 'system' ? systemTheme : nextTheme;
   const muiTheme = currentTheme === 'dark' ? darkTheme : lightTheme;
