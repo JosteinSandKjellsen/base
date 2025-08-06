@@ -7,6 +7,96 @@ import { CssBaseline } from "@mui/material";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
+// Custom typography configuration based on design system
+const customTypography = {
+  fontFamily: '"Poppins", "Helvetica", "Arial", sans-serif',
+  // Display styles
+  h1: {
+    fontSize: '76px',
+    lineHeight: '114px',
+    letterSpacing: '-0.25px',
+    fontWeight: 400,
+  },
+  h2: {
+    fontSize: '61px',
+    lineHeight: '92px',
+    letterSpacing: '0px',
+    fontWeight: 400,
+  },
+  h3: {
+    fontSize: '49px',
+    lineHeight: '74px',
+    letterSpacing: '0px',
+    fontWeight: 400,
+  },
+  // Headline styles
+  h4: {
+    fontSize: '39px',
+    lineHeight: '58px',
+    letterSpacing: '0px',
+    fontWeight: 400,
+  },
+  h5: {
+    fontSize: '31px',
+    lineHeight: '46px',
+    letterSpacing: '0px',
+    fontWeight: 400,
+  },
+  h6: {
+    fontSize: '25px',
+    lineHeight: '38px',
+    letterSpacing: '0px',
+    fontWeight: 400,
+  },
+  // Title styles
+  subtitle1: {
+    fontSize: '20px',
+    lineHeight: '30px',
+    letterSpacing: '0px',
+    fontWeight: 400,
+  },
+  subtitle2: {
+    fontSize: '16px',
+    lineHeight: '24px',
+    letterSpacing: '0.15px',
+    fontWeight: 500,
+  },
+  // Body styles
+  body1: {
+    fontSize: '16px',
+    lineHeight: '24px',
+    letterSpacing: '0.25px',
+    fontWeight: 400,
+  },
+  body2: {
+    fontSize: '14px',
+    lineHeight: '21px',
+    letterSpacing: '0.25px',
+    fontWeight: 400,
+  },
+  // Label styles
+  button: {
+    fontSize: '14px',
+    lineHeight: '21px',
+    letterSpacing: '0.2px',
+    fontWeight: 500,
+    textTransform: 'none' as const,
+  },
+  caption: {
+    fontSize: '12px',
+    lineHeight: '18px',
+    letterSpacing: '0.25px',
+    fontWeight: 500,
+  },
+  overline: {
+    fontSize: '11px',
+    lineHeight: '17px',
+    letterSpacing: '0.25px',
+    fontWeight: 500,
+    textTransform: 'uppercase' as const,
+  },
+};
+
 // Create light theme
 const lightTheme = createTheme({
   palette: {
@@ -47,9 +137,7 @@ const lightTheme = createTheme({
       secondary: "#292929",
     },
   },
-  typography: {
-    fontFamily: "Inter, system-ui, sans-serif",
-  },
+  typography: customTypography,
 });
 
 // Create dark theme
@@ -88,9 +176,7 @@ const darkTheme = createTheme({
       main: "#292929",
     },
     text: {
-      primary: "#F8F8F8",
-      secondary: "#F8F8F8",
-    },
+  typography: customTypography,
   },
   typography: {
     fontFamily: "Inter, system-ui, sans-serif",
