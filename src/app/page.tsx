@@ -1,20 +1,9 @@
-"use client";
-
-import { Box, Typography } from "@mui/material";
+import { WelcomeContent } from "@/components/welcome-content";
 
 /**
  * Welcome page for the base Next.js application.
+ * Server component that renders the welcome content.
  */
 export default function HomePage() {
-  return (
-    <Box className="min-h-screen flex flex-col items-center justify-center">
-      <Typography 
-        variant="h2" 
-        component="h1" 
-        className="font-bold"
-      >
-        Welcome to Base
-      </Typography>
-    </Box>
-  );
+  return <WelcomeContent />;
 }
