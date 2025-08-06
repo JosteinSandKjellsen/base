@@ -33,11 +33,13 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@loom/eslint-config": "workspace:*",
-    "@loom/tsconfig": "workspace:*",
+    "@loom/eslint-config": "*",
+    "@loom/tsconfig": "*",
     "postcss": "^8.5.3",
+    "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4",
+    "typescript": "^5.9.2"
   },
   "peerDependencies": {
     "eslint": "*",
