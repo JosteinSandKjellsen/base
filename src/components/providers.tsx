@@ -154,7 +154,7 @@ const darkTheme = createTheme({
       contrastText: "#441B50",
     },
     success: {
-      main: "#3FAF3",
+      main: "#3FAF43",
       contrastText: "#0E2510",
     },
     warning: {
@@ -179,7 +179,25 @@ const darkTheme = createTheme({
     text: {
       primary: "#FFFFFF",
       secondary: "#FFFFFF",
-    }
+    },
+  },
+  typography: customTypography,
+});
+
+interface ProvidersProps {
+  children: ReactNode;
+}
+
+function MUIThemeProvider({ children }: ProvidersProps) {
+  const [mounted, setMounted] = useState(false);
+  const { theme: nextTheme, systemTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <ThemeProvider theme={lightTheme}>{children}</ThemeProvider>;
   }
 
   const currentTheme = nextTheme === 'system' ? systemTheme : nextTheme;
@@ -191,7 +209,6 @@ const darkTheme = createTheme({
     </ThemeProvider>
   );
 }
-)
 
 /**
  * Client-side providers for the application.
