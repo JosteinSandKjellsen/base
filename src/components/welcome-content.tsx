@@ -16,5 +16,6 @@ export function WelcomeContent() {
           className="mb-4"
           color="primary"
     </Container>
+  )
   );
 }
