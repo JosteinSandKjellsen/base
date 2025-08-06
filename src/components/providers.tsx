@@ -176,11 +176,11 @@ const darkTheme = createTheme({
       main: "#292929",
     },
     text: {
+      primary: "#FFFFFF",
+      secondary: "#FFFFFF",
+    },
+  },
   typography: customTypography,
-  },
-  typography: {
-    fontFamily: "Inter, system-ui, sans-serif",
-  },
 });
 
 interface ProvidersProps {
