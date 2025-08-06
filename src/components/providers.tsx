@@ -193,20 +193,6 @@ interface ProvidersProps {
  */
 function MUIThemeProvider({ children }: { children: ReactNode }) {
   const { theme: nextTheme, systemTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    // Return light theme during SSR
-    return (
-      <ThemeProvider theme={lightTheme}>
-        {children}
-      </ThemeProvider>
-    );
-  }
 
   const currentTheme = nextTheme === 'system' ? systemTheme : nextTheme;
   const muiTheme = currentTheme === 'dark' ? darkTheme : lightTheme;
@@ -224,7 +210,7 @@ function MUIThemeProvider({ children }: { children: ReactNode }) {
  */
 export function Providers({ children }: ProvidersProps) {
   return (
-    <NextThemesProvider attribute="data-theme" defaultTheme="system" enableSystem>
+    <NextThemesProvider attribute="data-theme" defaultTheme="light" enableSystem>
       <AppRouterCacheProvider options={{ enableCssLayer: true }}>
         <MUIThemeProvider>
           <CssBaseline />
